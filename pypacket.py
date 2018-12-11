@@ -17,9 +17,10 @@ class Packet():
         self.dport = None        # Destination port
         self.ttl = None          # Time to Live
         self.seq = None          # Sequence number
-        self.ack = None          # Acknowledgement Number
+        self.ack = None          # Acknowledgement number
         self.window = None       # TCP window
         self.tcpflags = None     # TCP flags
+        self.tcnheaderlen = None # TCP header length
         self.len = None          # Length
         self.checksum = None     # Checksum
         self.icmptype = None     # ICMP type
@@ -133,10 +134,11 @@ class Packet():
         self.dport = tcp_header[1]
         self.seq = tcp_header[2]
         self.ack = tcp_header[3]
+        self.tcpheaderlen = ((tcp_header[4] >> 4) & 0xff) * 4
         self.tcpflags = self.parse_tcp_flags(tcp_header[5])
         self.window = tcp_header[6]
         self.checksum = tcp_header[7]
-        self.data = self.packet[offset+self.tcp_header_length:]
+        self.data = self.packet[offset+self.tcpheaderlen:]
 
     @staticmethod
     def parse_tcp_flags(control):
