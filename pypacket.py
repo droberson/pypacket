@@ -20,7 +20,7 @@ class Packet():
         self.ack = None          # Acknowledgement number
         self.window = None       # TCP window
         self.tcpflags = None     # TCP flags
-        self.tcnheaderlen = None # TCP header length
+        self.tcpheaderlen = None # TCP header length
         self.len = None          # Length
         self.checksum = None     # Checksum
         self.icmptype = None     # ICMP type
